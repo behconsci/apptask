@@ -1,10 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-summary
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block container %}
+    <div class="starter-template summary">
+        <h2>Summary</h2>
+        <a href="{% url 'summary' %}">
+            <button class="btn btn-primary {% if request.resolver_match.view_name == 'summary' %}active{% endif %}">
+                Sum
+            </button>
+        </a>
+        <a href="{% url 'summary_average' %}">
+            <button class="btn btn-primary {% if 'average' in request.resolver_match.view_name %}active{% endif %}">
+                Average
+            </button>
+        </a>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <td><strong>Site</strong></td>
+                <td><strong>A Value</strong></td>
+                <td><strong>B Value</strong></td>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for site in sites %}
+                <tr>
+                    <td>{{ site.name.title }}</td>
+                    {% if 'average' in request.resolver_match.view_name %}
+                        <td>{{ site.avg_a|floatformat:2 }}</td>
+                        <td>{{ site.avg_b|floatformat:2 }}</td>
+                    {% else %}
+                        <td>{{ site.sum_a }}</td>
+                        <td>{{ site.sum_b }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

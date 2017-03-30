@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-detail
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block container %}
+    <div class="starter-template">
+        <h2>Site Details - {{ site.name.title }}</h2>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <td><strong>Date</strong></td>
+                <td><strong>A Value</strong></td>
+                <td><strong>B Value</strong></td>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for stats in site.site_stats.all %}
+                <tr>
+                    <td>{{ stats.date|date:'M. j, Y' }}</td>
+                    <td>{{ stats.a_value }}</td>
+                    <td>{{ stats.b_value }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-index
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block container %}
+    <div class="starter-template">
+        <h2>Sites</h2>
+        <ul class="list-group">
+            {% for site in sites %}
+                <li class="list-group-item"><a href="{{ site.get_absolute_url }}">{{ site.name.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
